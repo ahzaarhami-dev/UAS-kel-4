@@ -1,0 +1,390 @@
+/* =====================================
+   RESET
+===================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#ececec;
+    display:flex;
+    justify-content:center;
+    font-family:Arial,sans-serif;
+}
+
+/* =====================================
+   APP CONTAINER
+===================================== */
+
+.app{
+    width:390px;
+    min-height:100vh;
+    background:white;
+}
+
+/* =====================================
+   HEADER
+===================================== */
+
+header{
+    background:#d68ccb;
+    color:white;
+
+    height:80px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 20px;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+}
+
+#menuBtn{
+    border:none;
+    background:none;
+    color:white;
+    font-size:28px;
+    cursor:pointer;
+}
+
+/* =====================================
+   DRAWER
+===================================== */
+
+#drawer{
+    display:none;
+}
+
+#drawer.open{
+    display:block;
+}
+
+/* =====================================
+   HOMEPAGE HERO
+===================================== */
+
+.hero{
+    background:#6cd0d6;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1{
+    margin-bottom:10px;
+}
+
+.swiper{
+    margin-top:20px;
+}
+
+.swiper-slide img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    border-radius:20px;
+}
+
+/* =====================================
+   SEARCH
+===================================== */
+
+.search-area{
+    background:#d68ccb;
+    padding:15px;
+}
+
+.search-box{
+    background:white;
+
+    border-radius:100px;
+
+    padding:12px 18px;
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+}
+
+.search-box input{
+    border:none;
+    outline:none;
+    width:100%;
+}
+
+/* =====================================
+   HOME CARDS
+===================================== */
+
+.content{
+    background:#f7eef5;
+    padding:20px;
+}
+
+.card,
+.promo{
+
+    background:
+    linear-gradient(
+        135deg,
+        #c76fc1,
+        #de96d6
+    );
+
+    color:white;
+
+    border-radius:25px;
+
+    padding:20px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    cursor:pointer;
+
+    margin-bottom:15px;
+}
+
+.card{
+    min-height:170px;
+}
+
+.promo{
+    min-height:100px;
+}
+
+.emoji{
+    font-size:60px;
+}
+
+/* =====================================
+   DETAIL PAGE
+===================================== */
+
+.detail-page{
+    background:#f8f2f7;
+}
+
+.detail-content{
+    padding:20px;
+}
+
+#cafeName{
+    color:#b45ea8;
+
+    font-size:34px;
+
+    font-weight:bold;
+
+    margin-bottom:20px;
+}
+
+/* =====================================
+   CAROUSEL
+===================================== */
+
+.detail-carousel{
+
+    position:relative;
+
+    background:#d68ccb;
+
+    padding:20px;
+
+    border-radius:30px;
+
+    margin-bottom:15px;
+}
+
+.detail-carousel img{
+
+    width:100%;
+
+    height:240px;
+
+    object-fit:cover;
+
+    border-radius:20px;
+}
+
+.nav-btn{
+
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:48px;
+    height:48px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:white;
+
+    color:#d68ccb;
+
+    font-size:24px;
+
+    cursor:pointer;
+}
+
+.left{
+    left:8px;
+}
+
+.right{
+    right:8px;
+}
+
+/* =====================================
+   DOTS
+===================================== */
+
+.dots{
+
+    display:flex;
+    justify-content:center;
+    gap:8px;
+
+    margin-bottom:20px;
+}
+
+.dots span{
+
+    width:10px;
+    height:10px;
+
+    border-radius:50%;
+
+    background:#d7bfd2;
+}
+
+.dots .active{
+    background:#b45ea8;
+}
+
+/* =====================================
+   INFO
+===================================== */
+
+.location-row{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:15px;
+}
+
+.location{
+
+    color:#b45ea8;
+
+    font-size:20px;
+    font-weight:bold;
+}
+
+.actions button{
+
+    background:none;
+    border:none;
+
+    font-size:28px;
+
+    cursor:pointer;
+}
+
+/* =====================================
+   TAGS
+===================================== */
+
+.tags{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:15px;
+}
+
+.tags span{
+
+    background:#75d7d7;
+
+    color:white;
+
+    padding:8px 14px;
+
+    border-radius:8px;
+}
+
+/* =====================================
+   DISTANCE & DESCRIPTION
+===================================== */
+
+.distance{
+
+    color:#777;
+
+    margin-bottom:15px;
+}
+
+.description{
+
+    color:#666;
+
+    line-height:1.6;
+
+    margin-bottom:25px;
+}
+
+/* =====================================
+   MENU KAFE
+===================================== */
+
+.menu-card{
+
+    background:white;
+
+    border:2px solid #e696d8;
+
+    border-radius:25px;
+
+    padding:20px;
+}
+
+.menu-card h2{
+    margin-bottom:10px;
+}
+
+.menu-logo{
+
+    margin-top:20px;
+
+    height:120px;
+
+    border-radius:15px;
+
+    background:#251859;
+
+    color:#d9e47a;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:60px;
+}

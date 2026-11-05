@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id"
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AfterHours - Detail Cafe</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app detail-page">
+
+    <header>
+
+        <div class="logo">
+            AfterHOURS
+        </div>
+
+        <button>
+            ☰
+        </button>
+
+    </header>
+
+    <div class="detail-content">
+
+        <h1 id="cafeName">
+            Kylau
+        </h1>
+
+        <div class="detail-carousel">
+
+            <button
+                class="nav-btn left"
+                onclick="prevCafe()">
+                ❮
+            </button>
+
+            <img
+                id="cafeImage"
+                src="-1.jpg"
+                alt="Cafe">
+
+            <button
+                class="nav-btn right"
+                onclick="nextCafe()">
+                ❯
+            </button>
+
+        </div>
+
+    <div class="dots">
+
+    <span class="dot active"></span>
+
+    <span class="dot"></span>
+
+    <span class="dot"></span>
+
+    <span class="dot"></span>
+
+      </div>
+
+        <div class="location-row">
+
+            <div
+                id="cafeLocation"
+                class="location">
+                📍 Depok, Jawa Barat
+            </div>
+
+            <div class="actions">
+
+                <button>
+                    🔖
+                </button>
+
+                <button>
+                    🤍
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="tags">
+
+            <span>24 Jam</span>
+
+            <span>Free Wi‑Fi</span>
+
+            <span>$$$$</span>
+
+        </div>
+
+        <div class="distance">
+            2.0 km
+        </div>
+
+        <p
+            id="cafeDescription"
+            class="description">
+
+            Kylau Common Space merupakan kafe
+            yang terletak di Kukusan.
+
+        </p>
+
+        <div class="menu-card">
+
+            <h2>Menu Kafe</h2>
+
+            <p>
+                Kamu bisa akses menu kafe ini
+                melalui tautan berikut
+            </p>
+
+            <div
+                class="menu-logo"
+                id="cafeMenu">
+                kylau
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
