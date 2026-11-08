@@ -1,21 +1,396 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>My Website</title>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <header>
-            <h1>Welcome to Our Website</h1>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
-        <main>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rekomendasi Kafe Sekitar Kampus UI</title>
+  <style>
+    :root {
+      --primary-color: #d175b6;
+      --primary-dark: #b8549b;
+      --card-bg: #f9d6ee;
+      --text-color: #333333;
+      --text-muted: #888888;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-family);
+      background-color: #e5e5e5;
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .app-container {
+      width: 100%;
+      max-width: 450px;
+      background-color: #ffffff;
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand-logo { font-size: 1.5rem; font-weight: 800; }
+    .menu-icon { font-size: 1.8rem; cursor: pointer; }
+    .nav-tabs {
+      display: flex;
+      overflow-x: auto;
+      background-color: #ffffff;
+      border-bottom: 1px solid #eee;
+      scrollbar-width: none;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 12px 16px;
+      border: none;
+      background: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+    .tab-btn.active { color: var(--primary-dark); border-bottom-color: var(--primary-dark); }
+    .content { padding: 20px; flex: 1; }
+    .cafe-page { display: none; }
+    .cafe-page.active { display: block; }
+    .cafe-title { font-size: 1.8rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 15px; }
+    .slider-card {
+      background-color: var(--primary-color);
+      border-radius: 20px;
+      padding: 15px;
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .slider-container {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .slide-img { width: 100%; height: 100%; object-fit: cover; display: none; }
+    .slide-img.active { display: block; }
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--primary-dark);
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .slider-arrow.left { left: 8px; }
+    .slider-arrow.right { right: 8px; }
+    .slider-dots { display: flex; justify-content: center; gap: 6px; margin-top: 12px; }
+    .dot { width: 8px; height: 8px; background-color: rgba(255, 255, 255, 0.5); border-radius: 50%; cursor: pointer; }
+    .dot.active { background-color: #ffffff; width: 10px; height: 10px; }
+    .location-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .location-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-bottom: 2px solid var(--primary-dark);
+      padding-bottom: 2px;
+    }
+    .tags-container { display: flex; gap: 8px; margin-bottom: 8px; }
+    .tag { background-color: #92d8d8; color: white; font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
+    .tag.grey { background-color: #d1d5db; color: #6b7280; }
+    .distance { color: var(--text-muted); font-size: 0.85rem; font-weight: 600; margin-bottom: 12px; }
+    .cafe-description { font-size: 0.95rem; line-height: 1.5; color: #555555; margin-bottom: 20px; }
+    .menu-box {
+      background-color: var(--card-bg);
+      border: 2px solid #f3aee0;
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .menu-header { display: flex; align-items: center; gap: 8px; color: var(--primary-dark); font-weight: 700; font-size: 1.1rem; margin-bottom: 6px; }
+    .menu-subtext { font-size: 0.8rem; color: var(--primary-dark); opacity: 0.8; margin-bottom: 14px; }
+    .btn-view-menu {
+      width: 100%;
+      background-color: #1e1b2e;
+      color: #f7e8a4;
+      border: none;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-transform: lowercase;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: white;
+      width: 90%; max-width: 500px;
+      height: 80vh;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .modal-header {
+      padding: 12px 16px;
+      background-color: var(--primary-color);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+    .close-btn { font-size: 1.5rem; cursor: pointer; }
+    .modal-body { flex: 1; padding: 10px; overflow-y: auto; }
+    .modal-body iframe { width: 100%; height: 100%; border: none; }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <header>
+      <div class="brand-logo">AfterHƲRS</div>
+      <div class="menu-icon">&#9776;</div>
+    </header>
+
+    <nav class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('kylau')">Kylau</button>
+      <button class="tab-btn" onclick="switchTab('pndar')">PNDAR</button>
+      <button class="tab-btn" onclick="switchTab('bagikopi')">Bagi Kopi</button>
+      <button class="tab-btn" onclick="switchTab('hozpasta')">Hoz Pasta</button>
+      <button class="tab-btn" onclick="switchTab('bening')">Bening</button>
+    </nav>
+
+    <main class="content">
+      <!-- 1. KYLAU -->
+      <section id="kylau" class="cafe-page active">
+        <h1 class="cafe-title">Kylau Common Space</h1>
+        <div class="slider-card">
+          <div class="slider-arrow left" onclick="moveSlide('kylau', -1)">&#10094;</div>
+          <div class="slider-arrow right" onclick="moveSlide('kylau', 1)">&#10095;</div>
+          <div class="slider-container" id="slider-kylau">
+            <img class="slide-img active" src="images/kylau/1.jpg.jpeg" alt="Kylau 1">
+            <img class="slide-img" src="images/kylau/2.jpg.jpeg" alt="Kylau 2">
+            <img class="slide-img" src="images/kylau/3.jpg.jpeg" alt="Kylau 3">
+          </div>
+          <div class="slider-dots" id="dots-kylau">
+            <span class="dot active" onclick="setSlide('kylau', 0)"></span>
+            <span class="dot" onclick="setSlide('kylau', 1)"></span>
+            <span class="dot" onclick="setSlide('kylau', 2)"></span>
+          </div>
+        </div>
+        <div class="location-container">
+          <a href="https://maps.app.goo.gl/kx9LaV8syGchXpN47" target="_blank" class="location-link">Depok, Jawa Barat</a>
+        </div>
+        <div class="tags-container"><span class="tag">24 Jam</span><span class="tag">Free Wi-Fi</span></div>
+        <div class="distance">2.0 km</div>
+        <p class="cafe-description">Kylau Common Space merupakan kafe yang terletak di area Kukusan dekat Universitas Indonesia. Tempat ini menyediakan area belajar, working space, dan kopi premium dengan suasana nyaman untuk mahasiswa.</p>
+        <div class="menu-box">
+          <div class="menu-header">Menu Kafe</div>
+          <p class="menu-subtext">Kamu bisa akses menu kafe ini melalui tautan berikut</p>
+          <button class="btn-view-menu" onclick="openMenuModal('Kylau Common Space', 'menu/kylau.pdf')">kylau</button>
+        </div>
+      </section>
+
+      <!-- 2. PNDAR -->
+      <section id="pndar" class="cafe-page">
+        <h1 class="cafe-title">PNDAR Cafe</h1>
+        <div class="slider-card">
+          <div class="slider-arrow left" onclick="moveSlide('pndar', -1)">&#10094;</div>
+          <div class="slider-arrow right" onclick="moveSlide('pndar', 1)">&#10095;</div>
+          <div class="slider-container" id="slider-pndar">
+            <img class="slide-img active" src="images/pndar/1.jpg.jpeg" alt="Pndar 1">
+            <img class="slide-img" src="images/pndar/2.jpg.jpeg" alt="Pndar 2">
+            <img class="slide-img" src="images/pndar/3.jpg.jpeg" alt="Pndar 3">
+          </div>
+          <div class="slider-dots" id="dots-pndar">
+            <span class="dot active" onclick="setSlide('pndar', 0)"></span>
+            <span class="dot" onclick="setSlide('pndar', 1)"></span>
+            <span class="dot" onclick="setSlide('pndar', 2)"></span>
+          </div>
+        </div>
+        <div class="location-container">
+          <a href="https://maps.app.goo.gl/3Bc44BwRsT8KbQhb6" target="_blank" class="location-link">Depok, Jawa Barat</a>
+        </div>
+        <div class="tags-container"><span class="tag">Indoor & Outdoor</span></div>
+        <div class="distance">1.5 km</div>
+        <p class="cafe-description">Pndar cafe merupakan kafe yang terdiri dari indoor dan oudoor area dengan menu makanan yang bervariasi dan arsitektur bergaya modern. Tempat yang cocok bagi mahasiswa untuk melakukan kegiatan seperti belajar, kerja, atau bersantai.</p>
+        <div class="menu-box">
+          <div class="menu-header">Menu Kafe</div>
+          <p class="menu-subtext">Kamu bisa akses menu kafe ini melalui tautan berikut</p>
+          <button class="btn-view-menu" onclick="openMenuModal('PNDAR Cafe', 'menu/pndar.pdf')">pndar</button>
+        </div>
+      </section>
+
+      <!-- 3. BAGI KOPI -->
+      <section id="bagikopi" class="cafe-page">
+        <h1 class="cafe-title">Bagi Kopi</h1>
+        <div class="slider-card">
+          <div class="slider-arrow left" onclick="moveSlide('bagikopi', -1)">&#10094;</div>
+          <div class="slider-arrow right" onclick="moveSlide('bagikopi', 1)">&#10095;</div>
+          <div class="slider-container" id="slider-bagikopi">
+            <img class="slide-img active" src="images/bagikopi/1.jpg.jpeg" alt="Bagi Kopi 1">
+            <img class="slide-img" src="images/bagikopi/2.jpg.jpeg" alt="Bagi Kopi 2">
+            <img class="slide-img" src="images/bagikopi/3.jpg.jpeg" alt="Bagi Kopi 3">
+          </div>
+          <div class="slider-dots" id="dots-bagikopi">
+            <span class="dot active" onclick="setSlide('bagikopi', 0)"></span>
+            <span class="dot" onclick="setSlide('bagikopi', 1)"></span>
+            <span class="dot" onclick="setSlide('bagikopi', 2)"></span>
+          </div>
+        </div>
+        <div class="location-container">
+          <a href="https://maps.app.goo.gl/xfoEnqDBswcMCyNu6" target="_blank" class="location-link">Depok, Jawa Barat</a>
+        </div>
+        <div class="tags-container"><span class="tag">Area Luas</span><span class="tag">AC Indoor</span></div>
+        <div class="distance">1.8 km</div>
+        <p class="cafe-description">Kafe yang menyediakan tempat nongkrong luas, nyaman, dan kekinian. Terdapat area indoor ber AC serta outdoor. Memiliki menu andalan yaitu kopi susu dengan nama uniknya seperti Bagi Akal Sehat, dan Bagi Kasih Sayang.</p>
+        <div class="menu-box">
+          <div class="menu-header">Menu Kafe</div>
+          <p class="menu-subtext">Kamu bisa akses menu kafe ini melalui tautan berikut</p>
+          <button class="btn-view-menu" onclick="openMenuModal('Bagi Kopi', 'menu/bagikopi.pdf')">bagi kopi</button>
+        </div>
+      </section>
+
+      <!-- 4. HOZ PASTA -->
+      <section id="hozpasta" class="cafe-page">
+        <h1 class="cafe-title">Hoz Pasta</h1>
+        <div class="slider-card">
+          <div class="slider-container" id="slider-hozpasta">
+            <img class="slide-img active" src="images/hozpasta/1.jpg.jpeg" alt="Hoz Pasta 1">
+          </div>
+        </div>
+        <div class="location-container">
+          <a href="https://maps.app.goo.gl/JninGsHBvYeLp2DR8" target="_blank" class="location-link">Depok, Jawa Barat</a>
+        </div>
+        <div class="tags-container"><span class="tag">Compact Indoor</span></div>
+        <div class="distance">0.8 km</div>
+        <p class="cafe-description">HOZ PASTA. Salah satu kafe di kawasan kampus Universitas Indonesia dengan area indoor yang compact dan menyediakan pasta dan kopi dengan harga yang ramah kantong mahasiswa.</p>
+        <div class="menu-box">
+          <div class="menu-header">Menu Kafe</div>
+          <p class="menu-subtext">Kamu bisa akses menu kafe ini melalui tautan berikut</p>
+          <button class="btn-view-menu" onclick="openMenuModal('Hoz Pasta', 'menu/hozpasta.pdf')">hoz pasta</button>
+        </div>
+      </section>
+
+      <!-- 5. BENING -->
+      <section id="bening" class="cafe-page">
+        <h1 class="cafe-title">Bening Coffee and Space</h1>
+        <div class="slider-card">
+          <div class="slider-arrow left" onclick="moveSlide('bening', -1)">&#10094;</div>
+          <div class="slider-arrow right" onclick="moveSlide('bening', 1)">&#10095;</div>
+          <div class="slider-container" id="slider-bening">
+            <img class="slide-img active" src="images/bening/1.jpg.jpeg" alt="Bening 1">
+            <img class="slide-img" src="images/bening/2.jpg.jpeg" alt="Bening 2">
+            <img class="slide-img" src="images/bening/3.jpg.jpeg" alt="Bening 3">
+          </div>
+          <div class="slider-dots" id="dots-bening">
+            <span class="dot active" onclick="setSlide('bening', 0)"></span>
+            <span class="dot" onclick="setSlide('bening', 1)"></span>
+            <span class="dot" onclick="setSlide('bening', 2)"></span>
+          </div>
+        </div>
+        <div class="location-container">
+          <a href="https://maps.app.goo.gl/hfsaq8UDiySHqRwP8" target="_blank" class="location-link">Depok, Jawa Barat</a>
+        </div>
+        <div class="tags-container"><span class="tag">Space Luas</span></div>
+        <div class="distance">2.3 km</div>
+        <p class="cafe-description">Cafe yang terdiri dari area indoor dan oudoor yang cukup luas, cocok untuk kegiatan kumpul banyak orang yang membutuhkan area yang luas. Dengan tempat yang nyaman untuk sekedar meminum kopi sejenak.</p>
+        <div class="menu-box">
+          <div class="menu-header">Menu Kafe</div>
+          <p class="menu-subtext">Kamu bisa akses menu kafe ini melalui tautan berikut</p>
+          <button class="btn-view-menu" onclick="openMenuModal('Bening Coffee and Space', 'menu/bening.pdf')">bening</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div id="pdfModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span id="modalTitle">Menu Kafe</span>
+        <span class="close-btn" onclick="closeMenuModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <iframe id="pdfViewer" src="" title="PDF"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(cafeId) {
+      document.querySelectorAll('.cafe-page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+      document.getElementById(cafeId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    const slideIndexes = { kylau: 0, pndar: 0, bagikopi: 0, hozpasta: 0, bening: 0 };
+    function showSlide(cafeId, index) {
+      const container = document.getElementById(`slider-${cafeId}`);
+      if (!container) return;
+      const slides = container.querySelectorAll('.slide-img');
+      const dots = document.querySelectorAll(`#dots-${cafeId} .dot`);
+      if (index >= slides.length) slideIndexes[cafeId] = 0;
+      else if (index < 0) slideIndexes[cafeId] = slides.length - 1;
+      else slideIndexes[cafeId] = index;
+      slides.forEach(s => s.classList.remove('active'));
+      dots.forEach(d => d.classList.remove('active'));
+      slides[slideIndexes[cafeId]].classList.add('active');
+      if (dots.length > 0) dots[slideIndexes[cafeId]].classList.add('active');
+    }
+    function moveSlide(cafeId, step) { showSlide(cafeId, slideIndexes[cafeId] + step); }
+    function setSlide(cafeId, index) { showSlide(cafeId, index); }
+
+    function openMenuModal(title, pdfFile) {
+      document.getElementById('modalTitle').innerText = 'Menu ' + title;
+      document.getElementById('pdfViewer').src = pdfFile;
+      document.getElementById('pdfModal').style.display = 'flex';
+    }
+    function closeMenuModal() {
+      document.getElementById('pdfModal').style.display = 'none';
+      document.getElementById('pdfViewer').src = '';
+    }
+    window.onclick = function(event) {
+      const modal = document.getElementById('pdfModal');
+      if (event.target === modal) closeMenuModal();
+    }
+  </script>
+</body>
 </html>

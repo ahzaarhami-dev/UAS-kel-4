@@ -1,0 +1,461 @@
+
+:root {
+    --primary-color: #d175b6;
+    --primary-dark: #b8549b;
+    --card-bg: #f9d6ee;
+    --text-color: #333333;
+    --text-muted: #888888;
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* RESET */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: #e5e5e5;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1100px;
+    background-color: #ffffff;
+    min-height: 100vh;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    position: relative;
+    z-index: 20;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-logo {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+}
+
+.brand-logo img {
+    display: block;
+    width: 140px;
+    height: 49px;
+    object-fit: contain;
+}
+
+.menu-icon {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.menu-icon:focus-visible,
+#drawer a:focus-visible {
+    outline: 3px solid white;
+    outline-offset: 3px;
+}
+
+/* =========================
+   NAVIGATION DRAWER
+========================= */
+
+#drawer {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 12px;
+    z-index: 30;
+
+    display: none;
+
+    width: min(240px, calc(100vw - 32px));
+    max-height: calc(100vh - 120px);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #d477bb transparent;
+
+    padding: 6px 14px;
+
+    background-color: #ffffff;
+    border: 1px solid #f3aee0;
+    border-radius: 14px;
+
+    box-shadow: 0 10px 24px rgba(80, 35, 68, 0.16);
+}
+
+#drawer::-webkit-scrollbar {
+    width: 5px;
+}
+
+#drawer::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#drawer::-webkit-scrollbar-thumb {
+    background: #d477bb;
+    border-radius: 10px;
+}
+
+#drawer.open {
+    display: block;
+}
+
+#drawer a {
+    display: block;
+    padding: 14px 8px;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#drawer a:hover,
+#drawer a:focus-visible {
+    background-color: var(--card-bg);
+    color: var(--primary-dark);
+}
+
+#drawer a + a {
+    border-top: 1px solid #f3aee0;
+}
+
+#drawer a:focus-visible {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 2px;
+}
+
+/* =========================
+   MENU INFO PANEL
+========================= */
+
+.menu-info-panel {
+    margin: 8px 0 12px;
+    padding: 12px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    color: var(--primary-dark);
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: normal;
+}
+
+.menu-info-panel[hidden] {
+    display: none;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.content {
+    padding: 20px;
+}
+
+.homepage-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.homepage-subtitle {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* =========================
+   IMAGE SLIDER
+========================= */
+
+.slider-card {
+    width: 100%;
+    background-color: var(--primary-color);
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.slider-card .swiper {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.slider-card .swiper-wrapper {
+    height: 100%;
+}
+
+.slider-card .swiper-slide {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.slider-card .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    border-radius: 12px;
+}
+
+/* Posisi cropping foto bisa diatur satu-satu */
+
+.slider-card .foto-1 {
+    object-position: center center;
+}
+
+.slider-card .foto-2 {
+    object-position: center center;
+}
+
+.slider-card .foto-3 {
+    object-position: center center;
+}
+
+/* =========================
+   SEARCH BOX
+========================= */
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border: 2px solid #f3aee0;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    background: transparent;
+}
+
+/* =========================
+   SEARCH RESULTS
+========================= */
+
+.search-results {
+    display: grid;
+    gap: 8px;
+    margin: -10px 0 20px;
+}
+
+.search-result-item {
+    display: block;
+    padding: 12px 15px;
+    border: 1px solid #f3aee0;
+    border-radius: 10px;
+    color: var(--primary-dark);
+    background: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.search-result-item:hover {
+    background: var(--card-bg);
+}
+
+.search-empty {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 8px 2px;
+}
+
+/* =========================
+   MENU CARDS
+========================= */
+
+.menu-box {
+    background-color: var(--card-bg);
+    border: 2px solid #f3aee0;
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+    cursor: pointer;
+}
+
+.menu-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+}
+
+.menu-subtext {
+    display: block;
+    color: #666666;
+    line-height: 1.5;
+    font-family: var(--font-family);
+    font-size: 1rem;
+}
+
+/* =========================
+   CARD ICONS
+========================= */
+
+.promo-icon {
+    display: block;
+    width: 30px;
+    height: 25px;
+    object-fit: contain;
+}
+
+.recommendation-icon {
+    display: block;
+    width: 28px;
+    height: 30px;
+    object-fit: contain;
+}
+
+/* =========================
+   PROMO BUTTON
+========================= */
+
+.promo-box {
+    width: 100%;
+    border: 2px solid #f3aee0;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--font-family);
+    font-size: inherit;
+    color: var(--text-color);
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.promo-box .menu-header {
+    font-family: var(--font-family);
+    font-size: 1.1rem;
+    color: var(--primary-dark);
+}
+
+.promo-box .menu-subtext {
+    font-family: var(--font-family);
+    font-size: 1rem;
+    color: #666666;
+    text-align: left;
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 700px) {
+
+    .app-container {
+        margin: 24px auto;
+        min-height: calc(100vh - 48px);
+        border-radius: 18px;
+        overflow: visible;
+    }
+
+    .content {
+        padding: 28px clamp(24px, 5vw, 64px);
+    }
+
+    .slider-card .swiper {
+        height: clamp(260px, 30vw, 360px);
+    }
+
+    .homepage-title {
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+    }
+
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (min-width: 601px) and (max-width: 699px) {
+
+    .slider-card .swiper {
+        height: 260px;
+    }
+
+}
+
+/* =========================
+   MOBILE / HP
+========================= */
+
+@media (max-width: 600px) {
+
+    .app-container {
+        width: 100%;
+        margin: 0 auto;
+        border-radius: 0;
+    }
+
+    header {
+        padding: 14px 16px;
+    }
+
+    .brand-logo img {
+        width: 118px;
+        height: 42px;
+    }
+
+    .content {
+        padding: 14px;
+    }
+
+    .homepage-title {
+        font-size: 1.5rem;
+    }
+
+    .slider-card {
+        padding: 10px;
+    }
+
+    .slider-card .swiper {
+        height: 210px;
+    }
+
+    .search-box {
+        width: 100%;
+        padding: 10px 12px;
+    }
+
+}

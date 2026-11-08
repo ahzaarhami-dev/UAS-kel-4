@@ -1,0 +1,307 @@
+/* =====================================
+   HEADER
+===================================== */
+
+header{
+    height:81px;
+    background:#d58acb;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 22px;
+}
+
+.logo{
+    color:white;
+    font-size:23px;
+    font-weight:bold;
+    text-decoration:none;
+    letter-spacing:-1px;
+}
+
+.logo span{
+    border:2px solid white;
+    border-radius:50%;
+    padding:0 2px;
+}
+
+#menuBtn{
+    border:none;
+    background:none;
+
+    color:white;
+
+    font-size:30px;
+
+    cursor:pointer;
+}
+
+
+/* =====================================
+   DRAWER
+===================================== */
+
+#drawer{
+    display:none;
+
+    background:#fffaff;
+
+    padding:15px 22px;
+
+    border-bottom:2px solid #f0d5ea;
+}
+
+#drawer.open{
+    display:block;
+}
+
+#drawer button{
+
+    width:100%;
+
+    margin-bottom:10px;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#fbdcf5;
+
+    color:#c878c0;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+
+/* =====================================
+   HERO
+===================================== */
+
+.hero{
+
+    background:#fffaff;
+
+    padding:18px 17px;
+}
+
+.hero h1{
+
+    color:#b75eae;
+
+    font-size:29px;
+
+    font-weight:bold;
+
+    margin-bottom:10px;
+}
+
+.hero p{
+
+    color:#999;
+
+    line-height:1.5;
+
+    font-size:15px;
+}
+
+
+/* =====================================
+   SWIPER
+===================================== */
+
+.swiper{
+    margin-top:18px;
+}
+
+.swiper-slide img{
+
+    width:100%;
+
+    height:220px;
+
+    object-fit:cover;
+
+    border-radius:20px;
+
+    box-shadow:0 4px 5px #d58acb55;
+}
+
+
+/* =====================================
+   SEARCH
+===================================== */
+
+.search-area{
+
+    background:#fffaff;
+
+    padding:0 17px 18px;
+}
+
+.search-box{
+
+    background:white;
+
+    border:2px solid #ec70d9;
+
+    border-radius:16px;
+
+    padding:12px 16px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.search-box input{
+
+    width:100%;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    font-size:15px;
+
+    color:#777;
+}
+
+
+/* =====================================
+   CONTENT
+===================================== */
+
+.content{
+
+    background:#fffaff;
+
+    padding:0 17px 20px;
+}
+
+
+/* =====================================
+   CARD REKOMENDASI
+===================================== */
+
+.card{
+
+    background:#fbdcf5;
+
+    border:2px solid #ec70d9;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:15px;
+
+    cursor:pointer;
+
+    box-shadow:0 4px 5px #d58acb33;
+}
+
+.card h2{
+
+    color:#c878c0;
+
+    margin-bottom:8px;
+
+    font-size:18px;
+}
+
+.card p{
+
+    color:#cb75c0;
+
+    line-height:1.5;
+
+    font-size:14px;
+}
+
+
+/* =====================================
+   CARD PROMO
+===================================== */
+
+.promo{
+
+    background:#fbdcf5;
+
+    border:2px solid #ec70d9;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    box-shadow:0 4px 5px #d58acb33;
+}
+
+.promo h2{
+
+    color:#c878c0;
+
+    margin-bottom:8px;
+
+    font-size:18px;
+}
+
+.promo p{
+
+    color:#cb75c0;
+
+    line-height:1.5;
+
+    font-size:14px;
+}
+
+
+/* =====================================
+   ICON
+===================================== */
+
+.emoji{
+
+    font-size:48px;
+}
+
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (min-width:700px){
+
+    .app{
+
+        border-radius:8px;
+
+        overflow:hidden;
+
+        box-shadow:0 10px 35px #0005;
+    }
+
+}

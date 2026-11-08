@@ -1,0 +1,353 @@
+
+/* =====================================
+   FILTER DROPDOWN
+===================================== */
+
+#priceDropdown,
+#aboutDropdown {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition:
+    max-height 0.45s cubic-bezier(.22, 1, .36, 1),
+    opacity 0.3s ease;
+}
+
+
+#priceDropdown.show,
+#aboutDropdown.show {
+    max-height: 1000px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+
+
+/* =====================================
+   DROPDOWN ITEM
+===================================== */
+
+#priceDropdown > a,
+#aboutDropdown > a {
+    display: block;
+    margin: 5px 0;
+    padding: 10px 12px;
+    background: #f9d6ee;
+    border-radius: 8px;
+    color: #c45aa0;
+    text-decoration: none;
+    font-size: .95rem;
+    transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.3s cubic-bezier(.22, 1, .36, 1);
+}
+
+#priceDropdown.show a,
+#aboutDropdown.show a {
+    transform: translateY(0);
+}
+
+
+/* =====================================
+   HOVER EFFECT
+===================================== */
+
+#priceDropdown a:hover,
+#aboutDropdown a:hover {
+    background: #f3aee0;
+    transform: translateX(4px);
+}
+
+
+/* =====================================
+   ACTIVE EFFECT
+===================================== */
+
+#priceDropdown a:active,
+#aboutDropdown a:active {
+    transform: translateX(4px) scale(.98);
+}
+
+
+/* =====================================
+   PRICE GROUP
+===================================== */
+
+.price-group {
+    margin: 5px 0;
+}
+
+.priceTitle {
+    display: block;
+    margin: 5px 0;
+    padding: 10px 12px;
+    background: #f9d6ee;
+    border-radius: 8px;
+    color: #c45aa0;
+    text-decoration: none;
+    font-size: .95rem;
+    transition:
+        background-color .2s ease,
+        transform .25s ease;
+}
+
+.priceTitle:hover {
+    background: #f3aee0;
+    transform: translateX(4px);
+}
+
+/* ============
+   CAFE LIST 
+=============== */
+
+.cafeList {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+
+    transition:
+        max-height 0.45s cubic-bezier(.22, 1, .36, 1),
+        opacity 0.3s ease;
+}
+
+.cafeList.show {
+    max-height: 500px;
+    opacity: 1;
+    pointer-events: auto;
+    overflow: hidden;
+}
+
+.cafeList a {
+    display: block;
+    margin: 5px 0;
+    padding: 10px 12px;
+
+    background: transparent;
+    border-radius: 8px;
+
+    color: #c45aa0 !important;
+    text-decoration: none;
+    font-size: .95rem;
+
+    transition:
+        color 0.25s ease,
+        transform 0.3s cubic-bezier(.22, 1, .36, 1);
+}
+
+#priceDropdown .cafeList a:hover {
+    background: transparent;
+    transform: translateX(3px);
+}
+
+.cafeList a:active {
+    transform: translateX(3px) scale(.98);
+}
+
+
+
+/* =====================================
+   EMPTY RESULT
+===================================== */
+
+.empty-result {
+    padding: 10px 12px;
+    color: #999;
+    font-style: italic;
+}
+
+
+/* =====================================
+   FONT COLOR DROPDOWN
+===================================== */
+
+#priceDropdown a,
+#aboutDropdown a {
+    color: #c45aa0 !important;
+}
+
+
+/* =====================================
+   CUSTOM DROPDOWN SCROLLBAR
+===================================== */
+
+#priceDropdown::-webkit-scrollbar,
+#aboutDropdown::-webkit-scrollbar {
+    width: 5px;
+}
+
+#priceDropdown::-webkit-scrollbar-track,
+#aboutDropdown::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#priceDropdown::-webkit-scrollbar-thumb,
+#aboutDropdown::-webkit-scrollbar-thumb {
+    background: #d477bb;
+    border-radius: 10px;
+}
+
+#priceDropdown::-webkit-scrollbar-thumb:hover,
+#aboutDropdown::-webkit-scrollbar-thumb:hover {
+    background: #c45aa0;
+}
+
+
+/* =====================================
+   AFTERHOURS - SMOOTH ANIMATIONS
+===================================== */
+
+/* HAMBURGER BUTTON */
+
+.menu-icon {
+    transition:
+        transform 0.3s cubic-bezier(.22, 1, .36, 1),
+        opacity 0.2s ease;
+}
+
+.menu-icon:hover {
+    transform: scale(1.12);
+}
+
+.menu-icon:active {
+    transform: scale(0.9);
+}
+
+
+/* =====================================
+   MAIN DRAWER ANIMATION
+===================================== */
+
+#drawer {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+
+    transform: translateY(-12px) scale(0.97);
+    transform-origin: top right;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.4s cubic-bezier(.22, 1, .36, 1),
+        visibility 0.3s ease;
+}
+
+#drawer.open {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+
+    transform: translateY(0) scale(1);
+}
+
+
+/* =====================================
+   DRAWER MENU HOVER
+===================================== */
+
+#drawer > a {
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.3s cubic-bezier(.22, 1, .36, 1);
+}
+
+#drawer > a:hover {
+    transform: translateX(4px);
+}
+
+
+/* =====================================
+   FILTER & TENTANG ANIMATION
+===================================== */
+
+#priceDropdown,
+#aboutDropdown {
+    transform: translateY(-7px);
+
+    transition:
+        max-height 0.45s cubic-bezier(.22, 1, .36, 1),
+        opacity 0.3s ease,
+        transform 0.35s cubic-bezier(.22, 1, .36, 1);
+}
+
+#priceDropdown.show,
+#aboutDropdown.show {
+    transform: translateY(0);
+}
+
+
+/* =====================================
+   CATEGORY ANIMATION
+===================================== */
+
+.priceTitle {
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.3s cubic-bezier(.22, 1, .36, 1);
+}
+
+.priceTitle:hover {
+    transform: translateX(4px);
+}
+
+
+/* =====================================
+   CAFE LIST ANIMATION
+===================================== */
+
+.cafeList {
+    transform: translateY(-6px);
+
+    transition:
+        max-height 0.45s cubic-bezier(.22, 1, .36, 1),
+        opacity 0.3s ease,
+        transform 0.35s cubic-bezier(.22, 1, .36, 1);
+}
+
+.cafeList.show {
+    transform: translateY(0);
+}
+
+
+/* =====================================
+   DROPDOWN ITEM HOVER
+===================================== */
+
+#priceDropdown .cafeList a,
+#aboutDropdown > a {
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.3s cubic-bezier(.22, 1, .36, 1);
+}
+
+#priceDropdown .cafeList a:hover,
+#aboutDropdown > a:hover {
+    transform: translateX(4px);
+}
+
+
+/* =====================================
+   CARD HOVER ANIMATION
+===================================== */
+
+.menu-box {
+    transition:
+        transform 0.3s cubic-bezier(.22, 1, .36, 1),
+        box-shadow 0.3s ease;
+}
+
+.menu-box:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(184, 84, 155, 0.15);
+}
+
+.menu-box:active {
+    transform: scale(0.98);
+}

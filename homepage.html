@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfterHours</title>
+
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="filter.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <header>
+
+            <!-- LOGO -->
+            <a class="brand-logo"
+               href="homepage.html"
+               aria-label="AfterHours - halaman utama">
+
+                <img src="images/afterhours-logo.png"
+                     alt="AfterHours">
+            </a>
+
+            <!-- HAMBURGER BUTTON -->
+            <button
+                id="menuBtn"
+                class="menu-icon"
+                type="button"
+                aria-label="Buka menu"
+                aria-controls="drawer"
+                aria-expanded="false">
+
+                ☰
+
+            </button>
+
+            <!-- NAVIGATION DRAWER -->
+            <nav id="drawer" aria-label="Menu utama">
+
+                <!-- FILTER HARGA -->
+                <a href="#" id="filterBtn">
+                    Filter Harga ▼
+                </a>
+
+                <div id="priceDropdown">
+
+                    <div class="price-group">
+                        <a href="#" class="priceTitle">
+                            Di bawah 25.000
+                        </a>
+
+                        <div class="cafeList">
+                            <div class="empty-result">
+                                Tidak ditemukan kafe dengan harga di bawah 25.000
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="price-group">
+                        <a href="#" class="priceTitle">
+                            25.000-50.000
+                        </a>
+
+                        <div class="cafeList">
+                            <a href="recs.html#kylau">Kylau Common Space</a>
+                            <a href="recs.html#pndar">PNDAR Cafe</a>
+                            <a href="recs.html#bagikopi">Bagi Kopi</a>
+                            <a href="recs.html#hozpasta">Hoz Pasta</a>
+                            <a href="recs.html#bening">Bening</a>
+                        </div>
+                    </div>
+
+                    <div class="price-group">
+                        <a href="#" class="priceTitle">
+                            50.000-100.000
+                        </a>
+
+                        <div class="cafeList">
+                            <div class="empty-result">
+                                Tidak ditemukan kafe dengan harga 50.000-100.000
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="price-group">
+                        <a href="#" class="priceTitle">
+                            Di atas 100.000
+                        </a>
+
+                        <div class="cafeList">
+                            <div class="empty-result">
+                                Tidak ditemukan kafe dengan harga di atas 100.000
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- TENTANG -->
+                <a href="#" id="aboutBtn">
+                    Tentang ▼
+                </a>
+
+                <div id="aboutDropdown">
+
+                    <!-- KELOMPOK PENGEMBANG -->
+                    <a href="#" data-menu-info="team">
+                        Kelompok Pengembang
+                    </a>
+
+                    <div id="teamInfo"
+                         class="menu-info-panel"
+                         hidden>
+
+                        Afterhours adalah website yang dibuat oleh 
+                        kelompok 4 TI kelas A 2026/2027 untuk membantu 
+                        mahasiswa mencari tempat belajar yang nyaman
+
+                    </div>
+
+                </div>
+
+            </nav>
+
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main class="content">
+
+            <!-- HERO SECTION -->
+            <section class="hero">
+
+                <h1 class="homepage-title">
+                    Temukan Kafe Favoritmu!
+                </h1>
+
+                <p class="homepage-subtitle">
+                    Temukan kafe 24 jam terbaik untuk nongkrong,
+                    nugas, atau sekadar me time.
+                </p>
+
+            </section>
+
+            <!-- IMAGE SLIDER -->
+            <div class="slider-card">
+
+                <div class="swiper">
+
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide">
+                            <img
+                                src="https://www.archify.com/files/professional/projects/m/jxjmnyj89w.jpg"
+                                alt="Cafe 1">
+                        </div>
+
+                        <div class="swiper-slide">
+                            <img
+                                src="https://wisatamilenial.com/wp-content/uploads/2023/08/Harga-Menu-Bagi-Kopi-Cilandak-Image-From-@cafedarling-768x960.jpeg"
+                                alt="Cafe 2">
+                        </div>
+
+                        <div class="swiper-slide">
+                            <img
+                                src="https://i0.wp.com/www.rukita.co/stories/wp-content/uploads/2022/06/iyanaditianto.jpg?w=633&ssl=1"
+                                alt="Cafe 3">
+                        </div>
+
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+
+                </div>
+
+            </div>
+
+            <!-- SEARCH BOX -->
+            <div class="search-box">
+
+                <span>🔍</span>
+
+                <input
+                    id="searchInput"
+                    type="text"
+                    placeholder="Cari Cafe">
+
+            </div>
+
+            <div id="filterResult"
+                 class="search-results"
+                 aria-live="polite">
+            </div>
+
+            <!-- JELAJAHI KAFE -->
+            <div class="menu-box" id="rekomBtn">
+
+                <div class="menu-header">
+
+                    <img
+                        class="recommendation-icon"
+                        src="images/recommendation-icon.png"
+                        alt="">
+
+                    Jelajahi Kafe
+
+                </div>
+
+                <p class="menu-subtext">
+                    Berikut ini kafe-kafe terbaik
+                    yang harus kamu datangi.
+                </p>
+
+            </div>
+
+            <!-- PROMO -->
+            <button
+                class="menu-box promo-box"
+                id="promoBtn"
+                type="button">
+
+                <span class="menu-header">
+
+                    <img
+                        class="promo-icon"
+                        src="images/promo-ticket.png"
+                        alt="">
+
+                    Promo
+
+                </span>
+
+                <span class="menu-subtext">
+                    Promo spesial buat kamu yang mau hemat.
+                </span>
+
+            </button>
+
+        </main>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script src="menu.js"></script>
+    <script src="homepage.js"></script>
+    <script src="filter.js"></script>
+
+</body>
+</html>

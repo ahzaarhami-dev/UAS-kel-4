@@ -1,0 +1,967 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AfterHours</title>
+
+  <style>
+    :root {
+      --primary-color: #d175b6;
+      --primary-dark: #b8549b;
+      --card-bg: #f9d6ee;
+      --text-color: #333333;
+      --text-muted: #888888;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: #e5e5e5;
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 1100px;
+      background-color: #ffffff;
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      line-height: 0;
+    }
+
+    .brand-logo img {
+      display: block;
+      width: 140px;
+      height: 49px;
+      object-fit: contain;
+    }
+
+    .menu-icon {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.8rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .menu-icon:focus-visible,
+    #drawer a:focus-visible {
+      outline: 2px solid var(--primary-dark);
+      outline-offset: 2px;
+    }
+
+    #drawer {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 12px;
+      z-index: 200;
+      display: none;
+      width: min(240px, calc(100vw - 32px));
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
+      padding: 6px 14px;
+      background: #ffffff;
+      border: 1px solid #f3aee0;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(80, 35, 68, 0.16);
+      scrollbar-width: thin;
+      scrollbar-color: #d477bb transparent;
+    }
+
+    #drawer.open {
+      display: block;
+    }
+
+    .menu-info-panel {
+      margin: 8px 0 10px;
+      padding: 11px 12px;
+      border-radius: 9px;
+      background: var(--card-bg);
+      color: var(--primary-dark);
+      font-size: .88rem;
+      line-height: 1.5;
+      white-space: normal;
+    }
+
+    #drawer a {
+      display: block;
+      padding: 12px 8px;
+      color: var(--text-color);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+
+    #drawer a:hover {
+      background: var(--card-bg);
+      color: var(--primary-dark);
+    }
+
+    #drawer > a + a {
+      border-top: 1px solid #f3aee0;
+    }
+
+    #drawer::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    #drawer::-webkit-scrollbar-thumb {
+      background: #d477bb;
+      border-radius: 10px;
+    }
+
+    #priceDropdown,
+    #aboutDropdown {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+      transition: max-height 0.4s ease, opacity 0.25s ease;
+    }
+
+    #priceDropdown.show,
+    #aboutDropdown.show {
+      max-height: 300px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .price-group {
+      margin: 4px 0;
+    }
+
+    .priceTitle {
+      display: block;
+      padding: 10px 12px !important;
+      background: var(--card-bg);
+      color: var(--primary-dark) !important;
+      border-radius: 8px;
+    }
+
+    .cafeList {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+      transition: max-height 0.35s ease, opacity 0.25s ease;
+    }
+
+    .cafeList.show {
+      max-height: 220px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .cafeList a {
+      padding: 8px 12px !important;
+      color: var(--primary-dark) !important;
+      font-weight: 500 !important;
+    }
+
+    .empty-result {
+      padding: 8px 12px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+
+    /* TAB */
+
+    .nav-tabs {
+      display: flex;
+      overflow-x: auto;
+      background-color: #ffffff;
+      border-bottom: 1px solid #eee;
+      scrollbar-width: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-btn {
+      padding: 12px 16px;
+      border: none;
+      background: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn.active {
+      color: var(--primary-dark);
+      border-bottom-color: var(--primary-dark);
+    }
+
+    .content {
+      padding: 20px;
+      flex: 1;
+    }
+
+    .cafe-page {
+      display: none;
+    }
+
+    .cafe-page.active {
+      display: block;
+    }
+
+    .cafe-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 20px;
+    }
+
+    /* FOTO - BAGIAN YANG DIPERBAIKI */
+
+    .slider-card {
+      background-color: var(--primary-color);
+      border-radius: 20px;
+      padding: 12px;
+      position: relative;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(184, 84, 155, 0.13);
+    }
+
+    .slider-container {
+      position: relative;
+      width: 100%;
+      height: clamp(240px, 34vw, 360px);
+      border-radius: 13px;
+      overflow: hidden;
+      background-color: #f3d5e9;
+    }
+
+    .slide-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: none;
+    }
+
+    .slide-img.active {
+      display: block;
+    }
+
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 38px;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--primary-dark);
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      transition: all 0.2s ease;
+    }
+
+    .slider-arrow:hover {
+      background: white;
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .slider-arrow.left {
+      left: 22px;
+    }
+
+    .slider-arrow.right {
+      right: 22px;
+    }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .dot.active {
+      background-color: #ffffff;
+      width: 20px;
+      height: 8px;
+      border-radius: 10px;
+    }
+
+    /* INFORMASI KAFE */
+
+    .location-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .location-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-bottom: 2px solid var(--primary-dark);
+      padding-bottom: 2px;
+    }
+
+    .tags-container {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      background-color: #92d8d8;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .tag.grey {
+      background-color: #d1d5db;
+      color: #6b7280;
+    }
+
+    .distance {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .cafe-description {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #555555;
+      margin-bottom: 20px;
+    }
+
+    /* MENU */
+
+    .menu-box {
+      background-color: var(--card-bg);
+      border: 2px solid #f3aee0;
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .menu-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .menu-subtext {
+      font-size: 0.8rem;
+      color: var(--primary-dark);
+      opacity: 0.8;
+      margin-bottom: 14px;
+    }
+
+    .btn-view-menu {
+      width: 100%;
+      background-color: #1e1b2e;
+      color: #f7e8a4;
+      border: none;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-transform: lowercase;
+    }
+
+    /* MODAL */
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      width: 90%;
+      max-width: 500px;
+      height: 80vh;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 12px 16px;
+      background-color: var(--primary-color);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .close-btn {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    .modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* RESPONSIVE */
+
+    @media (min-width: 700px) {
+      .app-container {
+        margin: 24px auto;
+        min-height: calc(100vh - 48px);
+        border-radius: 18px;
+      }
+
+      .content {
+        padding: 28px clamp(24px, 5vw, 64px);
+      }
+
+      .cafe-title {
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+      }
+    }
+
+    @media (max-width: 520px) {
+      header {
+        padding: 14px 16px;
+      }
+
+      .brand-logo img {
+        width: 118px;
+        height: 42px;
+      }
+
+      .content {
+        padding: 14px;
+      }
+
+      .cafe-title {
+        font-size: 1.5rem;
+        margin-bottom: 16px;
+      }
+
+      .slider-card {
+        padding: 9px;
+        border-radius: 16px;
+      }
+
+      .slider-container {
+        height: 220px;
+        border-radius: 11px;
+      }
+
+      .slider-arrow {
+        width: 33px;
+        height: 33px;
+      }
+
+      .slider-arrow.left {
+        left: 14px;
+      }
+
+      .slider-arrow.right {
+        right: 14px;
+      }
+
+      .nav-tabs .tab-btn {
+        padding: 11px 12px;
+        font-size: .88rem;
+      }
+
+      .tags-container {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-container">
+    <header>
+      <a class="brand-logo" href="homepage.html" aria-label="AfterHours - halaman utama">
+        <img src="images/afterhours-logo.png" alt="AfterHours">
+      </a>
+
+      <button
+        id="menuBtn"
+        class="menu-icon"
+        type="button"
+        aria-label="Buka menu"
+        aria-controls="drawer"
+        aria-expanded="false">&#9776;</button>
+
+      <nav id="drawer" aria-label="Menu utama">
+        <a href="#" id="filterBtn" aria-expanded="false">Filter Harga ▼</a>
+
+        <div id="priceDropdown">
+          <div class="price-group">
+            <a href="#" class="priceTitle" aria-expanded="false">Di bawah 25.000</a>
+            <div class="cafeList">
+              <div class="empty-result">Informasi harga belum tersedia.</div>
+            </div>
+          </div>
+
+          <div class="price-group">
+            <a href="#" class="priceTitle" aria-expanded="false">25.000-50.000</a>
+            <div class="cafeList">
+              <div class="empty-result">Informasi harga belum tersedia.</div>
+            </div>
+          </div>
+
+          <div class="price-group">
+            <a href="#" class="priceTitle" aria-expanded="false">50.000-100.000</a>
+            <div class="cafeList">
+              <div class="empty-result">Informasi harga belum tersedia.</div>
+            </div>
+          </div>
+
+          <div class="price-group">
+            <a href="#" class="priceTitle" aria-expanded="false">Di atas 100.000</a>
+            <div class="cafeList">
+              <div class="empty-result">Informasi harga belum tersedia.</div>
+            </div>
+          </div>
+        </div>
+
+        <a href="#" id="aboutBtn" aria-expanded="false">Tentang ▼</a>
+
+        <div id="aboutDropdown">
+          <a href="#" data-menu-info="team">Tim Pengembang</a>
+          <a href="#" data-menu-info="contact">Kontak</a>
+          <div id="menuInfoPanel" class="menu-info-panel" hidden></div>
+        </div>
+      </nav>
+    </header>
+
+    <nav class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('kylau')">Kylau</button>
+      <button class="tab-btn" onclick="switchTab('pndar')">PNDAR</button>
+      <button class="tab-btn" onclick="switchTab('bagikopi')">Bagi Kopi</button>
+      <button class="tab-btn" onclick="switchTab('hozpasta')">Hoz Pasta</button>
+      <button class="tab-btn" onclick="switchTab('bening')">Bening</button>
+    </nav>
+
+    <main class="content">
+
+      <!-- 1. KYLAU -->
+      <section id="kylau" class="cafe-page active">
+        <h1 class="cafe-title">Kylau Common Space</h1>
+
+        <div class="slider-card">
+          <div class="slider-arrow left" onclick="moveSlide('kylau', -1)">&#10094;</div>
+          <div class="slider-arrow right" onclick="moveSlide('kylau', 1)">&#10095;</div>
+
+          <div class="slider-container" id="slider-kylau">
+            <img class="slide-img active" src="images/kylau/1.jpg.jpeg" alt="Kylau 1">
+            <img class="slide-img" src="images/kylau/2.jpg.jpeg" alt="Kylau 2">
+            <img class="slide-img" src="images/kylau/3.jpg.jpeg" alt="Kylau 3">
+          </div>
+
+          <div class="slider-dots" id="dots-kylau">
+            <span class="dot active" onclick="setSlide('kylau', 0)"></span>
+            <span class="dot" onclick="setSlide('kylau', 1)"></span>
+            <span class="dot" onclick="setSlide('kylau', 2)"></span>
+          </div>
+        </div>
+
+        <div class="location-container">
+          <a href="https://maps.app.goo.gl/kx9LaV8syGchXpN47" target="_blank" class="location-link">Depok, Jawa Barat</a>
+        </div>
+
+        <div class="tags-container">
+          <span class="tag">24 Jam</span>
+          <span class="tag">Free Wi-Fi</span>
+        </div>
+
+        <div class="distance">2.0 km</div>
+
+        <p class="cafe-description">
+          Kylau Common Space merupakan kafe yang terletak di area Kukusan dekat Universitas Indonesia. Tempat ini menyediakan area belajar, working space, dan kopi premium dengan suasana nyaman untuk mahasiswa.
+        </p>
+
+        <div class="menu-box">
+          <div class="menu-header">Menu Kafe</div>
+          <p class="menu-subtext">Kamu bisa akses menu kafe ini melalui tautan berikut</p>
+          <button class="btn-view-menu" onclick="openMenuModal('Kylau Common Space', 'menu/kylau.pdf')">kylau</button>
+        </div>
+      </section>
+
+      <!-- 2. PNDAR -->
+      <section id="pndar" class="cafe-page">
+        <h1 class="cafe-title">PNDAR Cafe</h1>
+
+        <div class="slider-card">
+          <div class="slider-arrow left" onclick="moveSlide('pndar', -1)">&#10094;</div>
+          <div class="slider-arrow right" onclick="moveSlide('pndar', 1)">&#10095;</div>
+
+          <div class="slider-container" id="slider-pndar">
+            <img class="slide-img active" src="images/pndar/1.jpg.jpeg" alt="Pndar 1">
+            <img class="slide-img" src="images/pndar/2.jpg.jpeg" alt="Pndar 2">
+            <img class="slide-img" src="images/pndar/3.jpg.jpeg" alt="Pndar 3">
+          </div>
+
+          <div class="slider-dots" id="dots-pndar">
+            <span class="dot active" onclick="setSlide('pndar', 0)"></span>
+            <span class="dot" onclick="setSlide('pndar', 1)"></span>
+            <span class="dot" onclick="setSlide('pndar', 2)"></span>
+          </div>
+        </div>
+
+        <div class="location-container">
+          <a href="https://maps.app.goo.gl/3Bc44BwRsT8KbQhb6" target="_blank" class="location-link">Depok, Jawa Barat</a>
+        </div>
+
+        <div class="tags-container">
+          <span class="tag">Indoor & Outdoor</span>
+        </div>
+
+        <div class="distance">1.5 km</div>
+
+        <p class="cafe-description">
+          Pndar cafe merupakan kafe yang terdiri dari indoor dan oudoor area dengan menu makanan yang bervariasi dan arsitektur bergaya modern. Tempat yang cocok bagi mahasiswa untuk melakukan kegiatan seperti belajar, kerja, atau bersantai.
+        </p>
+
+        <div class="menu-box">
+          <div class="menu-header">Menu Kafe</div>
+          <p class="menu-subtext">Kamu bisa akses menu kafe ini melalui tautan berikut</p>
+          <button class="btn-view-menu" onclick="openMenuModal('PNDAR Cafe', 'menu/pndar.pdf')">pndar</button>
+        </div>
+      </section>
+
+      <!-- 3. BAGI KOPI -->
+      <section id="bagikopi" class="cafe-page">
+        <h1 class="cafe-title">Bagi Kopi</h1>
+
+        <div class="slider-card">
+          <div class="slider-arrow left" onclick="moveSlide('bagikopi', -1)">&#10094;</div>
+          <div class="slider-arrow right" onclick="moveSlide('bagikopi', 1)">&#10095;</div>
+
+          <div class="slider-container" id="slider-bagikopi">
+            <img class="slide-img active" src="images/bagikopi/1.jpg.jpeg" alt="Bagi Kopi 1">
+            <img class="slide-img" src="images/bagikopi/2.jpg.jpeg" alt="Bagi Kopi 2">
+            <img class="slide-img" src="images/bagikopi/3.jpg.jpeg" alt="Bagi Kopi 3">
+          </div>
+
+          <div class="slider-dots" id="dots-bagikopi">
+            <span class="dot active" onclick="setSlide('bagikopi', 0)"></span>
+            <span class="dot" onclick="setSlide('bagikopi', 1)"></span>
+            <span class="dot" onclick="setSlide('bagikopi', 2)"></span>
+          </div>
+        </div>
+
+        <div class="location-container">
+          <a href="https://maps.app.goo.gl/xfoEnqDBswcMCyNu6" target="_blank" class="location-link">Depok, Jawa Barat</a>
+        </div>
+
+        <div class="tags-container">
+          <span class="tag">Area Luas</span>
+          <span class="tag">AC Indoor</span>
+        </div>
+
+        <div class="distance">1.8 km</div>
+
+        <p class="cafe-description">
+          Kafe yang menyediakan tempat nongkrong luas, nyaman, dan kekinian. Terdapat area indoor ber AC serta outdoor. Memiliki menu andalan yaitu kopi susu dengan nama uniknya seperti Bagi Akal Sehat, dan Bagi Kasih Sayang.
+        </p>
+
+        <div class="menu-box">
+          <div class="menu-header">Menu Kafe</div>
+          <p class="menu-subtext">Kamu bisa akses menu kafe ini melalui tautan berikut</p>
+          <button class="btn-view-menu" onclick="openMenuModal('Bagi Kopi', 'menu/bagikopi.pdf')">bagi kopi</button>
+        </div>
+      </section>
+
+      <!-- 4. HOZ PASTA -->
+      <section id="hozpasta" class="cafe-page">
+        <h1 class="cafe-title">Hoz Pasta</h1>
+
+        <div class="slider-card">
+          <div class="slider-container" id="slider-hozpasta">
+            <img class="slide-img active" src="images/hozpasta/1.jpg.jpeg" alt="Hoz Pasta 1">
+          </div>
+        </div>
+
+        <div class="location-container">
+          <a href="https://maps.app.goo.gl/JninGsHBvYeLp2DR8" target="_blank" class="location-link">Depok, Jawa Barat</a>
+        </div>
+
+        <div class="tags-container">
+          <span class="tag">Compact Indoor</span>
+        </div>
+
+        <div class="distance">0.8 km</div>
+
+        <p class="cafe-description">
+          HOZ PASTA. Salah satu kafe di kawasan kampus Universitas Indonesia dengan area indoor yang compact dan menyediakan pasta dan kopi dengan harga yang ramah kantong mahasiswa.
+        </p>
+
+        <div class="menu-box">
+          <div class="menu-header">Menu Kafe</div>
+          <p class="menu-subtext">Kamu bisa akses menu kafe ini melalui tautan berikut</p>
+          <button class="btn-view-menu" onclick="openMenuModal('Hoz Pasta', 'menu/hozpasta.pdf')">hoz pasta</button>
+        </div>
+      </section>
+
+      <!-- 5. BENING -->
+      <section id="bening" class="cafe-page">
+        <h1 class="cafe-title">Bening Coffee and Space</h1>
+
+        <div class="slider-card">
+          <div class="slider-arrow left" onclick="moveSlide('bening', -1)">&#10094;</div>
+          <div class="slider-arrow right" onclick="moveSlide('bening', 1)">&#10095;</div>
+
+          <div class="slider-container" id="slider-bening">
+            <img class="slide-img active" src="images/bening/1.jpg.jpeg" alt="Bening 1">
+            <img class="slide-img" src="images/bening/2.jpg.jpeg" alt="Bening 2">
+            <img class="slide-img" src="images/bening/3.jpg.jpeg" alt="Bening 3">
+          </div>
+
+          <div class="slider-dots" id="dots-bening">
+            <span class="dot active" onclick="setSlide('bening', 0)"></span>
+            <span class="dot" onclick="setSlide('bening', 1)"></span>
+            <span class="dot" onclick="setSlide('bening', 2)"></span>
+          </div>
+        </div>
+
+        <div class="location-container">
+          <a href="https://maps.app.goo.gl/hfsaq8UDiySHqRwP8" target="_blank" class="location-link">Depok, Jawa Barat</a>
+        </div>
+
+        <div class="tags-container">
+          <span class="tag">Space Luas</span>
+        </div>
+
+        <div class="distance">2.3 km</div>
+
+        <p class="cafe-description">
+          Cafe yang terdiri dari area indoor dan oudoor yang cukup luas, cocok untuk kegiatan kumpul banyak orang yang membutuhkan area yang luas. Dengan tempat yang nyaman untuk sekedar meminum kopi sejenak.
+        </p>
+
+        <div class="menu-box">
+          <div class="menu-header">Menu Kafe</div>
+          <p class="menu-subtext">Kamu bisa akses menu kafe ini melalui tautan berikut</p>
+          <button class="btn-view-menu" onclick="openMenuModal('Bening Coffee and Space', 'menu/bening.pdf')">bening</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL PDF -->
+  <div id="pdfModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span id="modalTitle">Menu Kafe</span>
+        <span class="close-btn" onclick="closeMenuModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <iframe id="pdfViewer" src="" title="PDF"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(cafeId) {
+      document.querySelectorAll('.cafe-page').forEach(p => {
+        p.classList.remove('active');
+      });
+
+      document.querySelectorAll('.tab-btn').forEach(t => {
+        t.classList.remove('active');
+      });
+
+      const target = document.getElementById(cafeId);
+      if (!target) return;
+
+      target.classList.add('active');
+
+      document.querySelectorAll('.tab-btn').forEach(button => {
+        const tabAction = button.getAttribute('onclick') || '';
+        button.classList.toggle('active', tabAction.includes(`'${cafeId}'`));
+      });
+
+      history.replaceState(null, '', '#' + cafeId);
+    }
+
+    const slideIndexes = {
+      kylau: 0,
+      pndar: 0,
+      bagikopi: 0,
+      hozpasta: 0,
+      bening: 0
+    };
+
+    function showSlide(cafeId, index) {
+      const container = document.getElementById(`slider-${cafeId}`);
+      if (!container) return;
+
+      const slides = container.querySelectorAll('.slide-img');
+      const dots = document.querySelectorAll(`#dots-${cafeId} .dot`);
+
+      if (!slides.length) return;
+
+      if (index >= slides.length) {
+        slideIndexes[cafeId] = 0;
+      } else if (index < 0) {
+        slideIndexes[cafeId] = slides.length - 1;
+      } else {
+        slideIndexes[cafeId] = index;
+      }
+
+      slides.forEach(s => s.classList.remove('active'));
+      dots.forEach(d => d.classList.remove('active'));
+
+      slides[slideIndexes[cafeId]].classList.add('active');
+
+      if (dots.length > 0 && dots[slideIndexes[cafeId]]) {
+        dots[slideIndexes[cafeId]].classList.add('active');
+      }
+    }
+
+    function moveSlide(cafeId, step) {
+      showSlide(cafeId, slideIndexes[cafeId] + step);
+    }
+
+    function setSlide(cafeId, index) {
+      showSlide(cafeId, index);
+    }
+
+    function openMenuModal(title, pdfFile) {
+      document.getElementById('modalTitle').innerText = 'Menu ' + title;
+      document.getElementById('pdfViewer').src = pdfFile;
+      document.getElementById('pdfModal').style.display = 'flex';
+    }
+
+    function closeMenuModal() {
+      document.getElementById('pdfModal').style.display = 'none';
+      document.getElementById('pdfViewer').src = '';
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('pdfModal');
+
+      if (event.target === modal) {
+        closeMenuModal();
+      }
+    };
+
+    window.addEventListener("load", () => {
+      const hash = window.location.hash.substring(1);
+
+      if (!hash) return;
+
+      const targetPage = document.getElementById(hash);
+      if (!targetPage) return;
+
+      document.querySelectorAll(".cafe-page").forEach(page => {
+        page.classList.remove("active");
+      });
+
+      targetPage.classList.add("active");
+
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.classList.remove("active");
+
+        const onclick = btn.getAttribute("onclick");
+
+        if (onclick && onclick.includes(hash)) {
+          btn.classList.add("active");
+        }
+      });
+    });
+  </script>
+
+  <script src="menu.js"></script>
+  <script src="filter.js"></script>
+
+</body>
+</html>

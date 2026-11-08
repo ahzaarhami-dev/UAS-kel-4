@@ -1,0 +1,271 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #252525;
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+    color: #888;
+}
+
+.container {
+    max-width: 430px;
+    min-height: 100vh;
+    margin: auto;
+    background: #fffaff;
+    padding-bottom: 30px;
+}
+
+/* HEADER */
+.navbar {
+    height: 81px;
+    background: #d58acb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 22px;
+}
+
+.logo {
+    color: white;
+    font-size: 23px;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    border: 2px solid white;
+    border-radius: 50%;
+    padding: 0 2px;
+}
+
+.hamburger {
+    width: 43px;
+}
+
+.hamburger span {
+    display: block;
+    height: 5px;
+    background: white;
+    border-radius: 5px;
+    margin: 6px 0;
+}
+
+/* CONTENT */
+.content {
+    padding: 18px 17px;
+}
+
+h1 {
+    color: #b75eae;
+    font-size: 29px;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+/* FOTO */
+.foto-container {
+    height: 207px;
+    background: linear-gradient(120deg, #d98ed0, #c85fba);
+    border: 2px solid #d77bce;
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 5px #d58acb55;
+    overflow: hidden;
+}
+
+.foto-container img {
+    width: 65%;
+    height: 132px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.arrow {
+    position: absolute;
+    top: 42%;
+    border: none;
+    background: white;
+    color: #d66bc8;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 19px;
+    cursor: pointer;
+}
+
+.left {
+    left: 14px;
+}
+
+.right {
+    right: 14px;
+}
+
+.dots {
+    position: absolute;
+    bottom: 12px;
+    display: flex;
+    gap: 9px;
+}
+
+.dots span {
+    background: white;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+/* LOKASI */
+.location {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.location a:first-child {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+    color: #bd65b5;
+    font-size: 19px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.pin {
+    font-size: 24px;
+}
+
+.bookmark,
+.heart {
+    color: #bd65b5;
+    font-size: 35px;
+    text-decoration: none;
+}
+
+/* INFORMASI */
+.info {
+    display: flex;
+    gap: 7px;
+    margin-top: 10px;
+}
+
+.info span {
+    min-width: 82px;
+    text-align: center;
+    padding: 4px 8px;
+    background: #8bd0d4;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.info span:nth-child(2),
+.info span:nth-child(3) {
+    background: #d4d5d7;
+    color: #777;
+}
+
+.jarak {
+    margin-top: 9px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.description {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #999;
+    margin-top: 10px;
+    margin-bottom: 18px;
+}
+
+/* MENU */
+.menu-box {
+    background: #fbdcf5;
+    border: 2px solid #ec70d9;
+    border-radius: 16px;
+    padding: 14px 18px 18px;
+    margin: 0 3px;
+}
+
+.menu-box h2 {
+    color: #c878c0;
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.menu-box h2 span {
+    margin-right: 8px;
+}
+
+.menu-box p {
+    font-size: 14px;
+    color: #cb75c0;
+    margin-left: 31px;
+    margin-bottom: 10px;
+}
+
+.menu-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 31px;
+    height: 94px;
+    background: #261d39;
+    border: 2px solid #b76caf;
+    border-radius: 9px;
+    color: #e8f4a5;
+    text-decoration: none;
+    font-size: 34px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* GOOGLE MAPS */
+.maps-button {
+    display: block;
+    background: #c86fbd;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 13px;
+    border-radius: 10px;
+    margin: 17px 3px;
+    font-weight: bold;
+}
+
+@media (min-width: 700px) {
+    body {
+        padding: 25px 0;
+    }
+
+    .container {
+        border-radius: 8px;
+        box-shadow: 0 10px 35px #0005;
+    }
+}
+
+
+.menu-box iframe {
+    display: block;
+    width: 100%;
+    min-height: 450px;
+    margin-top: 15px;
+    background: white;
+}
+
+.menu-box .maps-button {
+    margin-left: 0;
+    margin-right: 0;
+}
