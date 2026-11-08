@@ -1,15 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // TOMBOL JELAJAHI KAFE
-    const rekomBtn = document.getElementById("rekomBtn");
-
-    if (rekomBtn) {
-        rekomBtn.addEventListener("click", function () {
-            window.location.href = "recs.html";
-        });
-    }
-
     // TOMBOL PROMO
     const promoBtn = document.getElementById("promoBtn");
 
@@ -124,15 +115,24 @@ document.addEventListener("DOMContentLoaded", function () {
             slidesPerView: 1,
             spaceBetween: 15,
             grabCursor: true,
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: false
+            },
 
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true
             },
 
-            autoplay: {
-                delay: 2500,
-                disableOnInteraction: false
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true
+            },
+
+            a11y: {
+                paginationBulletMessage: "Ke slide {{index}}",
+                slideLabelMessage: "{{index}} dari {{slidesLength}}"
             }
 
         });
