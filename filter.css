@@ -36,7 +36,7 @@
     padding: 10px 12px;
     background: #f9d6ee;
     border-radius: 8px;
-    color: #c45aa0;
+    color: #b8549b;
     text-decoration: none;
     font-size: .95rem;
     transition:
@@ -86,7 +86,7 @@
     padding: 10px 12px;
     background: #f9d6ee;
     border-radius: 8px;
-    color: #c45aa0;
+    color: #b8549b;
     text-decoration: none;
     font-size: .95rem;
     transition:
@@ -129,7 +129,7 @@
     background: transparent;
     border-radius: 8px;
 
-    color: #c45aa0 !important;
+    color: #b8549b !important;
     text-decoration: none;
     font-size: .95rem;
 
@@ -155,7 +155,7 @@
 
 .empty-result {
     padding: 10px 12px;
-    color: #999;
+    color: #666;
     font-style: italic;
 }
 
@@ -166,7 +166,7 @@
 
 #priceDropdown a,
 #aboutDropdown a {
-    color: #c45aa0 !important;
+    color: #b8549b !important;
 }
 
 
@@ -186,13 +186,13 @@
 
 #priceDropdown::-webkit-scrollbar-thumb,
 #aboutDropdown::-webkit-scrollbar-thumb {
-    background: #d477bb;
+    background: #d175b6;
     border-radius: 10px;
 }
 
 #priceDropdown::-webkit-scrollbar-thumb:hover,
 #aboutDropdown::-webkit-scrollbar-thumb:hover {
-    background: #c45aa0;
+    background: #b8549b;
 }
 
 

@@ -38,9 +38,13 @@ if (filterBtn && priceDropdown) {
         if (aboutDropdown) {
             aboutDropdown.classList.remove("show");
         }
+        if (aboutBtn) {
+            aboutBtn.setAttribute("aria-expanded", "false");
+        }
 
         // Toggle Filter
         priceDropdown.classList.toggle("show");
+        filterBtn.setAttribute("aria-expanded", String(!isOpen));
 
     });
 
@@ -61,16 +65,24 @@ if (aboutBtn && aboutDropdown) {
         if (priceDropdown) {
             priceDropdown.classList.remove("show");
         }
+        if (filterBtn) {
+            filterBtn.setAttribute("aria-expanded", "false");
+        }
 
         // Tutup daftar kategori harga
         document
             .querySelectorAll(".cafeList")
             .forEach(list => {
                 list.classList.remove("show");
+                const title = list.previousElementSibling;
+                if (title) {
+                    title.setAttribute("aria-expanded", "false");
+                }
             });
 
         // Toggle Tentang
-        aboutDropdown.classList.toggle("show");
+        const isOpen = aboutDropdown.classList.toggle("show");
+        aboutBtn.setAttribute("aria-expanded", String(isOpen));
 
     });
 
@@ -99,10 +111,15 @@ document
             .querySelectorAll(".cafeList")
             .forEach(list => {
                 list.classList.remove("show");
+                const title = list.previousElementSibling;
+                if (title) {
+                    title.setAttribute("aria-expanded", "false");
+                }
             });
 
         if (!isOpen) {
             cafeList.classList.add("show");
+            title.setAttribute("aria-expanded", "true");
         }
 
     });

@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AfterHours</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
 
     <link rel="stylesheet" href="homepage.css">
     <link rel="stylesheet" href="filter.css">
@@ -45,18 +46,18 @@
             <nav id="drawer" aria-label="Menu utama">
 
                 <!-- FILTER HARGA -->
-                <a href="#" id="filterBtn">
+                <a href="#" id="filterBtn" aria-expanded="false" aria-controls="priceDropdown">
                     Filter Harga ▼
                 </a>
 
                 <div id="priceDropdown">
 
                     <div class="price-group">
-                        <a href="#" class="priceTitle">
+                        <a href="#" class="priceTitle" aria-expanded="false" aria-controls="price-under-25">
                             Di bawah 25.000
                         </a>
 
-                        <div class="cafeList">
+                        <div class="cafeList" id="price-under-25">
                             <div class="empty-result">
                                 Tidak ditemukan kafe dengan harga di bawah 25.000
                             </div>
@@ -64,11 +65,11 @@
                     </div>
 
                     <div class="price-group">
-                        <a href="#" class="priceTitle">
+                        <a href="#" class="priceTitle" aria-expanded="false" aria-controls="price-25-50">
                             25.000-50.000
                         </a>
 
-                        <div class="cafeList">
+                        <div class="cafeList" id="price-25-50">
                             <a href="recs.html#kylau">Kylau Common Space</a>
                             <a href="recs.html#pndar">PNDAR Cafe</a>
                             <a href="recs.html#bagikopi">Bagi Kopi</a>
@@ -78,11 +79,11 @@
                     </div>
 
                     <div class="price-group">
-                        <a href="#" class="priceTitle">
+                        <a href="#" class="priceTitle" aria-expanded="false" aria-controls="price-50-100">
                             50.000-100.000
                         </a>
 
-                        <div class="cafeList">
+                        <div class="cafeList" id="price-50-100">
                             <div class="empty-result">
                                 Tidak ditemukan kafe dengan harga 50.000-100.000
                             </div>
@@ -90,11 +91,11 @@
                     </div>
 
                     <div class="price-group">
-                        <a href="#" class="priceTitle">
+                        <a href="#" class="priceTitle" aria-expanded="false" aria-controls="price-over-100">
                             Di atas 100.000
                         </a>
 
-                        <div class="cafeList">
+                        <div class="cafeList" id="price-over-100">
                             <div class="empty-result">
                                 Tidak ditemukan kafe dengan harga di atas 100.000
                             </div>
@@ -104,7 +105,7 @@
                 </div>
 
                 <!-- TENTANG -->
-                <a href="#" id="aboutBtn">
+                <a href="#" id="aboutBtn" aria-expanded="false" aria-controls="aboutDropdown">
                     Tentang ▼
                 </a>
 
@@ -135,9 +136,11 @@
         <main class="content">
 
             <!-- HERO SECTION -->
-            <section class="hero">
+            <section class="hero" aria-labelledby="homepage-title">
 
-                <h1 class="homepage-title">
+                <p class="hero-eyebrow">Teman produktif sepanjang malam</p>
+
+                <h1 class="homepage-title" id="homepage-title">
                     Temukan Kafe Favoritmu!
                 </h1>
 
@@ -149,28 +152,28 @@
             </section>
 
             <!-- IMAGE SLIDER -->
-            <div class="slider-card">
+            <section class="slider-card" aria-label="Suasana kafe pilihan">
 
-                <div class="swiper">
+                <div class="swiper" role="region" aria-roledescription="carousel" aria-label="Galeri suasana kafe">
 
                     <div class="swiper-wrapper">
 
                         <div class="swiper-slide">
                             <img
                                 src="https://www.archify.com/files/professional/projects/m/jxjmnyj89w.jpg"
-                                alt="Cafe 1">
+                                alt="Area duduk kafe yang nyaman untuk bekerja">
                         </div>
 
                         <div class="swiper-slide">
                             <img
                                 src="https://wisatamilenial.com/wp-content/uploads/2023/08/Harga-Menu-Bagi-Kopi-Cilandak-Image-From-@cafedarling-768x960.jpeg"
-                                alt="Cafe 2">
+                                alt="Suasana hangat di salah satu kafe pilihan">
                         </div>
 
                         <div class="swiper-slide">
                             <img
                                 src="https://i0.wp.com/www.rukita.co/stories/wp-content/uploads/2022/06/iyanaditianto.jpg?w=633&ssl=1"
-                                alt="Cafe 3">
+                                alt="Interior kafe dengan area duduk yang nyaman">
                         </div>
 
                     </div>
@@ -179,68 +182,82 @@
 
                 </div>
 
-            </div>
+            </section>
 
             <!-- SEARCH BOX -->
-            <div class="search-box">
+            <section class="search-section" aria-label="Cari kafe">
+                <label class="sr-only" for="searchInput">Cari nama kafe</label>
+                <div class="search-box">
 
-                <span>🔍</span>
+                    <span aria-hidden="true">⌕</span>
 
-                <input
-                    id="searchInput"
-                    type="text"
-                    placeholder="Cari Cafe">
-
-            </div>
-
-            <div id="filterResult"
-                 class="search-results"
-                 aria-live="polite">
-            </div>
-
-            <!-- JELAJAHI KAFE -->
-            <div class="menu-box" id="rekomBtn">
-
-                <div class="menu-header">
-
-                    <img
-                        class="recommendation-icon"
-                        src="images/recommendation-icon.png"
-                        alt="">
-
-                    Jelajahi Kafe
+                    <input
+                        id="searchInput"
+                        type="search"
+                        placeholder="Cari nama kafe..."
+                        autocomplete="off"
+                        aria-controls="filterResult">
 
                 </div>
 
-                <p class="menu-subtext">
-                    Berikut ini kafe-kafe terbaik
-                    yang harus kamu datangi.
-                </p>
+                <div id="filterResult"
+                     class="search-results"
+                     aria-live="polite"
+                     aria-relevant="additions text">
+                </div>
+            </section>
 
-            </div>
+            <!-- JELAJAHI KAFE -->
+            <section class="explore-section" aria-labelledby="explore-heading">
+                <div class="section-heading">
+                    <p class="section-eyebrow">Jelajahi AfterHours</p>
+                    <h2 id="explore-heading">Mulai dari sini</h2>
+                </div>
 
-            <!-- PROMO -->
-            <button
-                class="menu-box promo-box"
-                id="promoBtn"
-                type="button">
+                <div class="action-grid">
+                    <a class="menu-box explore-box" id="rekomBtn" href="recs.html">
+                        <span class="menu-header">
 
-                <span class="menu-header">
+                            <img
+                                class="recommendation-icon"
+                                src="images/recommendation-icon.png"
+                                alt="">
 
-                    <img
-                        class="promo-icon"
-                        src="images/promo-ticket.png"
-                        alt="">
+                            Jelajahi Kafe
+                        </span>
 
-                    Promo
+                        <span class="menu-subtext">
+                            Temukan tempat nyaman untuk belajar, bekerja, atau bersantai.
+                        </span>
 
-                </span>
+                        <span class="card-action" aria-hidden="true">Lihat rekomendasi <span>→</span></span>
+                    </a>
 
-                <span class="menu-subtext">
-                    Promo spesial buat kamu yang mau hemat.
-                </span>
+                    <!-- PROMO -->
+                    <button
+                        class="menu-box promo-box"
+                        id="promoBtn"
+                        type="button">
 
-            </button>
+                        <span class="menu-header">
+
+                            <img
+                                class="promo-icon"
+                                src="images/promo-ticket.png"
+                                alt="">
+
+                            Promo
+                        </span>
+
+                        <span class="menu-subtext">
+                            Temukan penawaran spesial agar waktu nongkrong tetap hemat.
+                        </span>
+
+                        <span class="card-action" aria-hidden="true">Lihat promo <span>→</span></span>
+                    </button>
+                </div>
+
+            </section>
 
         </main>
 
