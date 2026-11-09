@@ -68,140 +68,6 @@
       object-fit: contain;
     }
 
-    .menu-icon {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.8rem;
-      line-height: 1;
-      cursor: pointer;
-      padding: 4px;
-    }
-
-    .menu-icon:focus-visible,
-    #drawer a:focus-visible {
-      outline: 2px solid var(--primary-dark);
-      outline-offset: 2px;
-    }
-
-    #drawer {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 12px;
-      z-index: 200;
-      display: none;
-      width: min(240px, calc(100vw - 32px));
-      max-height: calc(100vh - 120px);
-      overflow-y: auto;
-      overflow-x: hidden;
-      overscroll-behavior: contain;
-      padding: 6px 14px;
-      background: #ffffff;
-      border: 1px solid #f3aee0;
-      border-radius: 14px;
-      box-shadow: 0 10px 24px rgba(80, 35, 68, 0.16);
-      scrollbar-width: thin;
-      scrollbar-color: #d477bb transparent;
-    }
-
-    #drawer.open {
-      display: block;
-    }
-
-    .menu-info-panel {
-      margin: 8px 0 10px;
-      padding: 11px 12px;
-      border-radius: 9px;
-      background: var(--card-bg);
-      color: var(--primary-dark);
-      font-size: .88rem;
-      line-height: 1.5;
-      white-space: normal;
-    }
-
-    #drawer a {
-      display: block;
-      padding: 12px 8px;
-      color: var(--text-color);
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: 8px;
-    }
-
-    #drawer a:hover {
-      background: var(--card-bg);
-      color: var(--primary-dark);
-    }
-
-    #drawer > a + a {
-      border-top: 1px solid #f3aee0;
-    }
-
-    #drawer::-webkit-scrollbar {
-      width: 5px;
-    }
-
-    #drawer::-webkit-scrollbar-thumb {
-      background: #d477bb;
-      border-radius: 10px;
-    }
-
-    #priceDropdown,
-    #aboutDropdown {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      pointer-events: none;
-      transition: max-height 0.4s ease, opacity 0.25s ease;
-    }
-
-    #priceDropdown.show,
-    #aboutDropdown.show {
-      max-height: 300px;
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .price-group {
-      margin: 4px 0;
-    }
-
-    .priceTitle {
-      display: block;
-      padding: 10px 12px !important;
-      background: var(--card-bg);
-      color: var(--primary-dark) !important;
-      border-radius: 8px;
-    }
-
-    .cafeList {
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      pointer-events: none;
-      transition: max-height 0.35s ease, opacity 0.25s ease;
-    }
-
-    .cafeList.show {
-      max-height: 220px;
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .cafeList a {
-      padding: 8px 12px !important;
-      color: var(--primary-dark) !important;
-      font-weight: 500 !important;
-    }
-
-    .empty-result {
-      padding: 8px 12px;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      font-style: italic;
-    }
-
     /* TAB */
 
     .nav-tabs {
@@ -572,55 +438,6 @@
         <img src="images/afterhours-logo.png" alt="AfterHours">
       </a>
 
-      <button
-        id="menuBtn"
-        class="menu-icon"
-        type="button"
-        aria-label="Buka menu"
-        aria-controls="drawer"
-        aria-expanded="false">&#9776;</button>
-
-      <nav id="drawer" aria-label="Menu utama">
-        <a href="#" id="filterBtn" aria-expanded="false">Filter Harga ▼</a>
-
-        <div id="priceDropdown">
-          <div class="price-group">
-            <a href="#" class="priceTitle" aria-expanded="false">Di bawah 25.000</a>
-            <div class="cafeList">
-              <div class="empty-result">Informasi harga belum tersedia.</div>
-            </div>
-          </div>
-
-          <div class="price-group">
-            <a href="#" class="priceTitle" aria-expanded="false">25.000-50.000</a>
-            <div class="cafeList">
-              <div class="empty-result">Informasi harga belum tersedia.</div>
-            </div>
-          </div>
-
-          <div class="price-group">
-            <a href="#" class="priceTitle" aria-expanded="false">50.000-100.000</a>
-            <div class="cafeList">
-              <div class="empty-result">Informasi harga belum tersedia.</div>
-            </div>
-          </div>
-
-          <div class="price-group">
-            <a href="#" class="priceTitle" aria-expanded="false">Di atas 100.000</a>
-            <div class="cafeList">
-              <div class="empty-result">Informasi harga belum tersedia.</div>
-            </div>
-          </div>
-        </div>
-
-        <a href="#" id="aboutBtn" aria-expanded="false">Tentang ▼</a>
-
-        <div id="aboutDropdown">
-          <a href="#" data-menu-info="team">Tim Pengembang</a>
-          <a href="#" data-menu-info="contact">Kontak</a>
-          <div id="menuInfoPanel" class="menu-info-panel" hidden></div>
-        </div>
-      </nav>
     </header>
 
     <nav class="nav-tabs">
@@ -960,9 +777,6 @@
       });
     });
   </script>
-
-  <script src="menu.js"></script>
-  <script src="filter.js"></script>
 
 </body>
 </html>
